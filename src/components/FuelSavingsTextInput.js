@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const FuelSavingsTextInput = (props) => {
   const handleChange = (e) => {
-    props.onChangeEvent(props.name, e.target.value);
+    props.onChange(props.name, e.target.value);
   };
 
   return (
@@ -18,7 +18,7 @@ const FuelSavingsTextInput = (props) => {
 
 FuelSavingsTextInput.propTypes = {
   name: PropTypes.string.isRequired,
-  onChangeEvent: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,

@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import FuelSavingsResults from './FuelSavingsResults';
 import FuelSavingsTextInput from './FuelSavingsTextInput';
 import WithAnalytics from './WithAnalytics';
+import Analytics from './FuelSavingsForm.analytics';
 
+const name = 'FuelSavingsForm';
 
-const FuelSavingsTextInputWithAnalytics = WithAnalytics(FuelSavingsTextInput);
+const FuelSavingsTextInputWithAnalytics = WithAnalytics(Analytics[name], FuelSavingsTextInput);
 
 class FuelSavingsForm extends React.Component {
   constructor(props, context) {
@@ -39,28 +41,28 @@ class FuelSavingsForm extends React.Component {
           <tr>
             <td><label htmlFor="newMpg">New Vehicle MPG</label></td>
             <td>
-              <FuelSavingsTextInputWithAnalytics onChangeEvent={this.fuelSavingsKeypress} name="newMpg" value={fuelSavings.newMpg}/></td>
+              <FuelSavingsTextInputWithAnalytics onChange={this.fuelSavingsKeypress} name="newMpg" value={fuelSavings.newMpg}/></td>
           </tr>
           <tr>
             <td><label htmlFor="tradeMpg">Trade-in MPG</label></td>
-            <td><FuelSavingsTextInputWithAnalytics onChangeEvent={this.fuelSavingsKeypress} name="tradeMpg" value={fuelSavings.tradeMpg}/>
+            <td><FuelSavingsTextInputWithAnalytics onChange={this.fuelSavingsKeypress} name="tradeMpg" value={fuelSavings.tradeMpg}/>
             </td>
           </tr>
           <tr>
             <td><label htmlFor="newPpg">New Vehicle price per gallon</label></td>
-            <td><FuelSavingsTextInputWithAnalytics onChangeEvent={this.fuelSavingsKeypress} name="newPpg" value={fuelSavings.newPpg}/>
+            <td><FuelSavingsTextInputWithAnalytics onChange={this.fuelSavingsKeypress} name="newPpg" value={fuelSavings.newPpg}/>
             </td>
           </tr>
           <tr>
             <td><label htmlFor="tradePpg">Trade-in price per gallon</label></td>
-            <td><FuelSavingsTextInputWithAnalytics onChangeEvent={this.fuelSavingsKeypress} name="tradePpg" value={fuelSavings.tradePpg}/>
+            <td><FuelSavingsTextInputWithAnalytics onChange={this.fuelSavingsKeypress} name="tradePpg" value={fuelSavings.tradePpg}/>
             </td>
           </tr>
           <tr>
             <td><label htmlFor="milesDriven">Miles Driven</label></td>
             <td>
               <FuelSavingsTextInputWithAnalytics
-                onChangeEvent={this.fuelSavingsKeypress}
+                onChange={this.fuelSavingsKeypress}
                 name="milesDriven"
                 value={fuelSavings.milesDriven}/>
               miles per

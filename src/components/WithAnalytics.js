@@ -3,31 +3,39 @@ import {analytics} from '../actions/analyticsActions';
 import store from '../store/store';
 
 
-const getNewProps = props => {
-  let newProps = {};
-  Object.keys(props).forEach(key => {
-    if (key.endsWith('Event')) {
-      newProps = {
-        ...newProps, ...{
-          [key]: (...args) => {
-            dispatchAction(props);
-            props[key](...args);
+const getNewProps = (analytics, props) => {
+  let newProps = {...props};
+  const {key, events} = analytics[props.name];
+
+  Object.keys(props).forEach(prop => {
+    Object.keys(events).forEach(event => {
+      if (event === prop) {
+        newProps = {
+          ...newProps, ...{
+            [prop]: (...args) => {
+              let params = {};
+              if(events[event].params){
+                events[event].params.forEach(param => {
+                    params = {...params, ...{[param]: args[param]}};
+                });
+              }
+              dispatchAction({key, params});
+              props[prop](...args);
+            }
           }
         }
-      };
-    }
-    else {
-      newProps = {...newProps, ...{[key]: props[key]}};
-    }
+      }
+    });
   });
+
   return newProps;
 };
 
-const dispatchAction = props => {
+const dispatchAction = payload => {
   const {dispatch} = store;
-  dispatch(analytics({key: props.key, name: props.name}));
+  dispatch(analytics(payload));
 };
 
-const WithAnalytics = Component => props => <Component {...getNewProps(props)} />;
+const WithAnalytics = (analytics, Component) => props => <Component {...getNewProps(analytics, props)} />;
 
 export default WithAnalytics;
