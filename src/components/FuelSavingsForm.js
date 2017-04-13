@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import FuelSavingsResults from './FuelSavingsResults';
 import FuelSavingsTextInput from './FuelSavingsTextInput';
 import WithAnalytics from './WithAnalytics';
-import Analytics from './FuelSavingsForm.analytics';
+import analytics from './FuelSavingsForm.analytics';
 
-const name = 'FuelSavingsForm';
-
-const FuelSavingsTextInputWithAnalytics = WithAnalytics(Analytics[name], FuelSavingsTextInput);
+const FuelSavingsTextInputWithAnalytics = WithAnalytics(analytics, FuelSavingsTextInput);
 
 class FuelSavingsForm extends React.Component {
   constructor(props, context) {
