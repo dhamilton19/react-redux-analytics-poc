@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FuelSavingsResults from './FuelSavingsResults';
 import FuelSavingsTextInput from './FuelSavingsTextInput';
+import AnalyticsFuelSavingsTextInput from './AnalyticsFuelSavingsTextInput';
 import WithAnalytics from './WithAnalytics';
 import analytics from './FuelSavingsForm.analytics';
 
@@ -43,7 +44,7 @@ class FuelSavingsForm extends React.Component {
           </tr>
           <tr>
             <td><label htmlFor="tradeMpg">Trade-in MPG</label></td>
-            <td><FuelSavingsTextInputWithAnalytics onChange={this.fuelSavingsKeypress} name="tradeMpg" value={fuelSavings.tradeMpg}/>
+            <td><AnalyticsFuelSavingsTextInput onChange={this.fuelSavingsKeypress} name="tradeMpg" value={fuelSavings.tradeMpg}/>
             </td>
           </tr>
           <tr>

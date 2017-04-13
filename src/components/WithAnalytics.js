@@ -1,6 +1,6 @@
 import React from 'react';
-import {analytics} from '../actions/analyticsActions';
-import store from '../store/store';
+import dispatchAnalytics from '../utils/analytics';
+
 
 const handleEvents = (events, prop, key, currentProp) => {
   let newProps = {};
@@ -23,7 +23,7 @@ const handleEvent = (events, prop, key, currentProp, event) => {
           params = {...params, ...{[param]: args[param]}};
         });
       }
-      dispatchAction({key, params});
+      dispatchAnalytics()({key, params});
       currentProp(...args);
     }
   };
@@ -38,11 +38,6 @@ const getNewProps = (analytics, props) => {
   });
 
   return newProps;
-};
-
-const dispatchAction = payload => {
-  const {dispatch} = store;
-  dispatch(analytics(payload));
 };
 
 const WithAnalytics = (analytics, Component) => props => <Component {...getNewProps(analytics, props)} />;
