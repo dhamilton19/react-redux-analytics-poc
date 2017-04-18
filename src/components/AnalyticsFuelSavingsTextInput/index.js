@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import analyticsDispatcher from '../utils/analytics';
-
+import analytics from './AnalyticsFuelSavingsTextInput.analytics';
+import withAnalyticsContext from '../withAnalyticsContext';
 
 const FuelSavingsTextInput = (props) => {
   const handleChange = (e) => {
-    analyticsDispatcher()({key: props.name});
+    props.analytics.dispatch({...analytics, value: e.target.value});
     props.onChange(props.name, e.target.value);
   };
 
@@ -29,4 +29,4 @@ FuelSavingsTextInput.propTypes = {
   ])
 };
 
-export default FuelSavingsTextInput;
+export default withAnalyticsContext(FuelSavingsTextInput);

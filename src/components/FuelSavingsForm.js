@@ -5,6 +5,7 @@ import FuelSavingsTextInput from './FuelSavingsTextInput';
 import AnalyticsFuelSavingsTextInput from './AnalyticsFuelSavingsTextInput';
 import WithAnalytics from './WithAnalytics';
 import analytics from './FuelSavingsForm.analytics';
+import analyticsDispatcher from '../utils/analytics';
 
 const FuelSavingsTextInputWithAnalytics = WithAnalytics(analytics, FuelSavingsTextInput);
 
@@ -15,6 +16,14 @@ class FuelSavingsForm extends React.Component {
     this.save = this.save.bind(this);
     this.onTimeframeChange = this.onTimeframeChange.bind(this);
     this.fuelSavingsKeypress = this.fuelSavingsKeypress.bind(this);
+  }
+
+  getChildContext() {
+    return {
+      analytics: {
+        dispatch: analyticsDispatcher()
+      }
+    };
   }
 
   onTimeframeChange(e) {
@@ -40,21 +49,25 @@ class FuelSavingsForm extends React.Component {
           <tr>
             <td><label htmlFor="newMpg">New Vehicle MPG</label></td>
             <td>
-              <FuelSavingsTextInputWithAnalytics onChange={this.fuelSavingsKeypress} name="newMpg" value={fuelSavings.newMpg}/></td>
+              <FuelSavingsTextInputWithAnalytics onChange={this.fuelSavingsKeypress} name="newMpg"
+                                                 value={fuelSavings.newMpg}/></td>
           </tr>
           <tr>
             <td><label htmlFor="tradeMpg">Trade-in MPG</label></td>
-            <td><AnalyticsFuelSavingsTextInput onChange={this.fuelSavingsKeypress} name="tradeMpg" value={fuelSavings.tradeMpg}/>
+            <td><AnalyticsFuelSavingsTextInput onChange={this.fuelSavingsKeypress} name="tradeMpg"
+                                               value={fuelSavings.tradeMpg}/>
             </td>
           </tr>
           <tr>
             <td><label htmlFor="newPpg">New Vehicle price per gallon</label></td>
-            <td><FuelSavingsTextInputWithAnalytics onChange={this.fuelSavingsKeypress} name="newPpg" value={fuelSavings.newPpg}/>
+            <td><FuelSavingsTextInputWithAnalytics onChange={this.fuelSavingsKeypress} name="newPpg"
+                                                   value={fuelSavings.newPpg}/>
             </td>
           </tr>
           <tr>
             <td><label htmlFor="tradePpg">Trade-in price per gallon</label></td>
-            <td><FuelSavingsTextInputWithAnalytics onChange={this.fuelSavingsKeypress} name="tradePpg" value={fuelSavings.tradePpg}/>
+            <td><FuelSavingsTextInputWithAnalytics onChange={this.fuelSavingsKeypress} name="tradePpg"
+                                                   value={fuelSavings.tradePpg}/>
             </td>
           </tr>
           <tr>
@@ -95,6 +108,12 @@ FuelSavingsForm.propTypes = {
   saveFuelSavings: PropTypes.func.isRequired,
   calculateFuelSavings: PropTypes.func.isRequired,
   fuelSavings: PropTypes.object.isRequired
+};
+
+FuelSavingsForm.childContextTypes = {
+  analytics: PropTypes.shape({
+    dispatch: PropTypes.func.isRequired
+  })
 };
 
 export default FuelSavingsForm;
